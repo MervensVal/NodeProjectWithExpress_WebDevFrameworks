@@ -12,27 +12,45 @@ exports.userRouter = userRouter;
 let usersArray = [];
 exports.usersArray = usersArray;
 //initial uer
-usersArray.push(new user_1.User(1, "initialFName", "initialLName", "initial@email.com"));
+usersArray.push(new user_1.User(1, "initialFName", "initialLName", "initial@email.com", "password123"));
 //Get request
 userRouter.get('/', (req, res, next) => {
     res.status(200).send(usersArray);
 });
+//Get Request using id
+userRouter.get('/:userId', (req, res, next) => {
+    let foundUser = null;
+    let idEntered = +req.params.userId;
+    for (let i = 0; i < usersArray.length; i++) {
+        if (usersArray[i].userId === idEntered) {
+            foundUser = usersArray[i];
+            break;
+        }
+    }
+    if (foundUser === null) {
+        res.status(404).send({ message: 'User was not found' });
+    }
+    else {
+        res.send(foundUser);
+    }
+});
 //Post Request
 userRouter.post('/', (req, res, next) => {
     let lastUser = usersArray[usersArray.length - 1].userId;
-    usersArray.push(new user_1.User(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress));
+    usersArray.push(new user_1.User(++lastUser, req.body.firstName, req.body.lastName, req.body.emailAddress, req.body.password));
     res.status(201).send(usersArray[usersArray.length - 1]);
 });
 //Patch Request
 userRouter.patch('/:userId', (req, res, next) => {
-    let Id = req.body.userId;
     let foundUser = null;
+    let idEntered = +req.params.userId;
     for (let i = 0; i < usersArray.length; i++) {
-        if (usersArray[i].userId === +req.params.userId) {
+        if (usersArray[i].userId === idEntered) {
             foundUser = usersArray[i];
             foundUser.firstName = req.body.firstName;
             foundUser.lastName = req.body.lastName;
             foundUser.emailAddress = req.body.emailAddress;
+            foundUser.password = req.body.password;
             break;
         }
     }
@@ -45,18 +63,18 @@ userRouter.patch('/:userId', (req, res, next) => {
 });
 //delete request
 userRouter.delete('/:userId', (req, res, next) => {
-    let userId = +req.params.id;
+    let idEntered = +req.params.userId;
     let selectedIndex = -1;
     for (let i = 0; i < usersArray.length; i++) {
-        if (usersArray[i].userId === userId) {
+        if (usersArray[i].userId === idEntered) {
             selectedIndex = i;
+            usersArray.splice(selectedIndex, 1);
             break;
         }
     }
     if (selectedIndex >= 0) {
         //Removes elements from an array in the position specified
-        exports.usersArray = usersArray = usersArray.splice(selectedIndex, 1);
-        res.status(204).send('No Content');
+        res.status(204).send('User deleted');
     }
     else {
         res.status(204).send('No item found');

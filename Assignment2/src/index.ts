@@ -17,6 +17,7 @@ checks to see if there is a a file in your public folder that matches your reque
 process.cwd() grabs the current directory and path.join, joins them together
 This lets you create a public acessible folder and makes it easier to display the contents
 */
+
 application.use(express.static(path.join(process.cwd(),'public')));
 
 
@@ -24,13 +25,10 @@ application.use(express.static(path.join(process.cwd(),'public')));
 application.use('/users', userRouter);
 
 //res.status(404) in the method can be used to generate 404 error
+//default request
+
 application.use('/',(req,res,next)=>{
-    res.send("<h1>Main page with tables<h1>");
-})
-
-
-
+   res.sendFile(path.join(process.cwd() + '/public/html/default.html'));
+});
 
 application.listen(3000);
-
-//1hr mins

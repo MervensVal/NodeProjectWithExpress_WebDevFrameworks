@@ -24,9 +24,9 @@ application.use(express_1.default.static(path_1.default.join(process.cwd(), 'pub
 //This makes sure that any response that starts with User gets sent to userRouter
 application.use('/users', usersRoutes_1.userRouter);
 //res.status(404) in the method can be used to generate 404 error
+//default request
 application.use('/', (req, res, next) => {
-    res.send("<h1>Main page with tables<h1>");
+    res.sendFile(path_1.default.join(process.cwd() + '/public/html/default.html'));
 });
 application.listen(3000);
-//1hr mins
 //# sourceMappingURL=index.js.map

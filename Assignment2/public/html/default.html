@@ -1,20 +1,74 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <head>
 
     <body>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12 col-xl-6 ">
-                        <h1>Default</h1>
-                        <input type="submit" class="btn btn-primary mt-2" value="Get Users">
-                    </div>
-                </div>
-            </div>
+        <h1 class="text-center mb-4">Help Page</h1>
+        <form action="/" method="Get">
+            <table width="90%" id="table">
+                <th>
+                    <h3> Method </h3>
+                </th>
+                <th>
+                    <h3> URL </h3>
+                </th>
+                <th>
+                    <h3> Form Link </h3>
+                </th>
+                <th>
+                    <h3> Description</h3> <p>(Get, Post, Patch, & Delete works with Postman)</p>
+                </th>
+                <tr>
+                    <td> GET </td>
+                    <td> /users </td>
+                    <td> <a href="http://localhost:3000/html/get.html">http://localhost:3000/html/get.html</td>
+                    <td> Will return a list of any user in the database (as a JSON array) with all their properties</td>
+                </tr>
+                <tr>
+                    <td> POST </td>
+                    <td> /users </td>
+                    <td> <a href="http://localhost:3000/html/post.html">http://localhost:3000/html/post.html</td>
+                    <td> 
+                        Will allow you to Update (change) any data (except the ID) for an existing User.
+                        <ul>
+                           <li> UserID </li>
+                           <li> Fist Name </li>
+                           <li> Last Name </li>
+                           <li> Email Address </li> 
+                           <li> Password</li>
+                        </ul>
+                        If the user is successfully created it will return the user entity along with a 201 (Created Status)
+                    </td>
+                </tr>
+                <tr>
+                    <td> GET </td>
+                    <td> /Users/{userId} </td>
+                    <td> None</td>
+                    <td> Will return a specific User ID (the user ID provided in the URL) with all its properties if it exists.<br> 
+                        If the User ID is not found it will return an error 404 (Not Found) with an appropriate message</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td> PATCH </td>
+                    <td> /Users/{userId} </td>
+                    <td> None</td>
+                    <td> Will allow you to Update (change) any data (except the ID) for an existing User. <br>
+                        If the User isn’t found it will return an error (same as above 404 not found)</td>
+                </tr>
+                <tr>
+                    <td> DELETE </td>
+                    <td> /User/{ID} </td>
+                    <td> None</td>
+                    <td> Will Delete a user (if it exists) if it doesn’t exist it will return an Error with a status code 404 (Not found)</td>
+                </tr>
+            </table>
+        </form>
+
     </body>
 
 </html>
